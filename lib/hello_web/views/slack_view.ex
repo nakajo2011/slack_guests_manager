@@ -12,17 +12,17 @@ defmodule HelloWeb.SlackView do
   def get_names(conn) do
     conn
     |> Map.fetch!("members")
-    |> Enum.map(fn (x) -> Map.fetch!(x, "name") end)
+    |> Enum.map(fn x -> Map.fetch!(x, "name") end)
   end
 
   def get_guests(member) do
     member
-    |> Enum.filter(fn (x) -> x["is_restricted"] end)
+    |> Enum.filter(fn x -> x["is_restricted"] end)
   end
 
   def get_multiguests(member) do
     member
-    |> Enum.filter(fn (x) -> is_multiguest(x) end)
+    |> Enum.filter(fn x -> is_multiguest(x) end)
   end
 
   def get_guest_permission_name(member) do
@@ -39,8 +39,12 @@ defmodule HelloWeb.SlackView do
 
   def expire_date_to_dateTime(member) do
     case {is_multiguest(member), member["profile"]["guest_expiration_ts"]} do
-      {false, nil} -> "-"
-      {true, nil} -> "無期限"
+      {false, nil} ->
+        "-"
+
+      {true, nil} ->
+        "無期限"
+
       {_, timestamp} ->
         DateTime.from_unix(timestamp)
         |> date_to_localize
@@ -57,10 +61,12 @@ defmodule HelloWeb.SlackView do
   end
 
   def channels(member) do
-    cids = case member.guest_channels do
-      nil -> []
+    cids =
+      case member.guest_channels do
+        nil -> []
         clist -> Enum.map(clist, fn c -> c["name"] end)
-    end
+      end
+
     Enum.join(cids, ", ")
   end
 end
