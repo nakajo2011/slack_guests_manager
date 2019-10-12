@@ -1,0 +1,22 @@
+<ul class="nav nav-tabs">
+  <li class="nav-item text-center">
+    <a class="nav-link active" id="list-tab" data-toggle="tab" href="#list" role="tab" aria-controls="list" aria-selected="true">ゲスト一覧</a>
+  </li>
+  <li class="nav-item text-center">
+    <a class="nav-link" id="multionly-tab" data-toggle="tab" href="#multionly" role="tab" aria-controls="multionly" aria-selected="false">マルチゲストのみ</a>
+  </li>
+</ul>
+<div class="tab-content">
+  <div class="tab-pane active" id="list" role="tabpanel" aria-labelledby="list-tab">
+<div class="phx-hero">
+  <h2>Slack Guest Users Infomation</h2>
+  <%= render @view_module, "_guest_list.html", members: get_guests @list %>
+</div>
+  </div>
+  <div class="tab-pane fade" id="multionly" role="tabpanel" aria-labelledby="multionly-tab">
+<div class="phx-hero">
+  <h2>Slack Multi Guest Only Users Infomation</h2>
+  <%= render @view_module, "_guest_list.html", members: get_multiguests @list %>
+  </div>
+  </div>
+</div>

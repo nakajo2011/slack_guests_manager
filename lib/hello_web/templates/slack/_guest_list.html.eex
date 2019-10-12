@@ -1,0 +1,24 @@
+<div>
+<table class="table">
+  <thead>
+  <tr>
+  <th scope="col">slack名</th>
+  <th scope="col">real名</th>
+  <th scope="col" style="width: 25%;">ゲスト権限</th>
+  <th scope="col">期限</th>
+  <th scope="col">channels</th>
+</tr>
+  </thead>
+  <tbody>
+  <%= for member <- @members do %>
+  <tr>
+</tr>
+    <td><%= member["name"] %></td>
+    <td><%= member["real_name"] %></td>
+    <td><%= get_guest_permission_name(member) %></td>
+    <td><%= expire_date_to_dateTime(member) %></td>
+    <td><%= channels(member)%></td>
+  <% end %>
+  </tbody>
+</table>
+</div>
